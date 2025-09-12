@@ -1,3 +1,3 @@
-module github.com/Kalyle-68/Go_projects
+module github.com/Kalyle-68/Golang/functions
 
 go 1.24.4
