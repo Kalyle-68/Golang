@@ -15,15 +15,16 @@ type Vector3 struct {
 	z float64
 }
 
-type Dimens2 struct {
+
+type Dim2 struct {
 	w float64
 	h float64
 }
 
-type Dimens3 struct {
+type Dim3 struct {
 	w float64
 	h float64
-	d float32
+	d float64
 }
 
 func mouseRot(mX int, mY int) float64 {
