@@ -6,6 +6,6 @@ import (
 )
 
 func main() {
-	var vector extras.main.Vector2 = extras.main.Vector2{8, 6}
-	println(fmt.Sprint(vector.x) + ", " + fmt.Sprint(vector.y))
+	var vector extras.Vector2 = extras.Vector2{8, 6}
+	println(fmt.Sprint(vector.X) + ", " + fmt.Sprint(vector.Y))
 }
