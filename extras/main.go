@@ -27,10 +27,10 @@ type Dim3 struct {
 	D float64
 }
 
-func MouseRot(mX int, mY int) float64 {
-	var mouse_pos = Vector2{float64(mX), float64(mY)}
-	var dirOfMouse float64 = float64(math.Atan2(float64(mouse_pos.y-300), float64(mouse_pos.x-400)) + math.Pi/4)
-	return dirOfMouse
+func MouseRot(x float64, y float64, ancX float64, ancY float64) float64 {
+	var pos = Vector2{float64(x), float64(y)}
+	var rot float64 = float64(math.Atan2(float64(pos.Y-300), float64(pos.X-400)) + math.Pi/4)
+	return rot
 }
 func IsoVec(x float64, y float64, dir float64, xSqu float64, ySqu float64, ancX float64, ancY float64) Vector2 {
 	return Vector2{
