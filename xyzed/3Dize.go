@@ -17,7 +17,9 @@ func persProj(oriPoint extras.Vector3, clipping bool) extras.Vector2 {
 	return extras.PersProj(oriPoint, CamPos, CamRot, WinDim, nearPlane, farPlane, clipping)
 }
 
-func rotatePoints()
+func rotatePoints() extras.Vector3 {
+	return extras.RotatePoint(oriPoint, CamPos, CamRot, nearPlane, farPlane, clipping)
+}
 
 func drawTriangles(screen *ebiten.Image) {
 	var NewEnv = extras.ReorderTriangles(CamPos, Env)
@@ -26,7 +28,7 @@ func drawTriangles(screen *ebiten.Image) {
 		var indices []uint16
 		var smallDistToCen float64 = 18_446_744_073_709_551_615
 		for vertex := 0; vertex < len(NewEnv[triangle].Vertices); vertex++ {
-			var point extras.Vector2 = persProj(extras.RotatePoints(NewEnv[triangle].Vertices[vertex], false)
+			var point extras.Vector2 = persProj(NewEnv[triangle].Vertices[vertex], false)
 			smallDistToCen = math.Min(smallDistToCen, math.Hypot(point.X-WinDim.W/2, point.Y-WinDim.H/2))
 		}
 		if smallDistToCen < math.Max(WinDim.W/2, WinDim.H/2) {
