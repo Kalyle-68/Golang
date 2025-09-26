@@ -1,8 +1,8 @@
 package extras
 
 import (
-	"math"
 	"image/color"
+	"math"
 )
 
 type Vector2 struct {
@@ -84,12 +84,12 @@ func PersProj(oriPoint Vector3, CamPos Vector3, CamRot Vector3, WinDim Dim2, nea
 }
 
 type Triangle struct {
-	vertices []Vector3
-	color    color.Color
+	Vertices []Vector3
+	Color    color.Color
 }
 
 func ReorderTriangles(anchor Vector3, triangles []Triangle) []Triangle {
-	var finalTriangles []Triangle;
+	var finalTriangles []Triangle
 	for tri := 0; tri < len(triangles); tri++ {
 		if tri == 0 {
 			finalTriangles = append(finalTriangles, triangles[tri])
@@ -103,9 +103,9 @@ func ReorderTriangles(anchor Vector3, triangles []Triangle) []Triangle {
 			averPoint.X /= float64(len(triangles[tri].vertices))
 			averPoint.Y /= float64(len(triangles[tri].vertices))
 			averPoint.Z /= float64(len(triangles[tri].vertices))
-			var newX = math.Pow(averPoint.X - anchor.X, 2)
-			var newY = math.Pow(averPoint.Y - anchor.Y, 2)
-			var newZ = math.Pow(averPoint.Z - anchor.Z, 2)
+			var newX = math.Pow(averPoint.X-anchor.X, 2)
+			var newY = math.Pow(averPoint.Y-anchor.Y, 2)
+			var newZ = math.Pow(averPoint.Z-anchor.Z, 2)
 			var relDist = math.Sqrt(newX + newY + newZ)
 			for idx := 0; idx < len(triangles); idx++ {
 				var averPoint2 = Vector3{0, 0, 0}
@@ -117,9 +117,9 @@ func ReorderTriangles(anchor Vector3, triangles []Triangle) []Triangle {
 				averPoint2.X /= float64(len(triangles[idx].vertices))
 				averPoint2.Y /= float64(len(triangles[idx].vertices))
 				averPoint2.Z /= float64(len(triangles[idx].vertices))
-				var newX2 = math.Pow(averPoint2.X - anchor.X, 2)
-				var newY2 = math.Pow(averPoint2.Y - anchor.Y, 2)
-				var newZ2 = math.Pow(averPoint2.Z - anchor.Z, 2)
+				var newX2 = math.Pow(averPoint2.X-anchor.X, 2)
+				var newY2 = math.Pow(averPoint2.Y-anchor.Y, 2)
+				var newZ2 = math.Pow(averPoint2.Z-anchor.Z, 2)
 				var relDist2 = math.Sqrt(newX2 + newY2 + newZ2)
 				if relDist < relDist2 {
 					finalTriangles = append(finalTriangles, triangles[tri])
