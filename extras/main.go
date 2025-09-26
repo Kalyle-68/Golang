@@ -2,6 +2,7 @@ package extras
 
 import (
 	"math"
+	"image/color"
 )
 
 type Vector2 struct {
@@ -80,4 +81,52 @@ func PersProj(oriPoint Vector3, CamPos Vector3, CamRot Vector3, WinDim Dim2, nea
 	screenX := (point.X/point.Z)*scale.W + WinDim.W/2
 	screenY := -(point.Y/point.Z)*scale.H + WinDim.H/2
 	return Vector2{X: screenX, Y: screenY}
+}
+
+type Triangle struct {
+	vertices []Vector3
+	color    color.Color
+}
+
+func ReorderTriangles(anchor Vector3, triangles []Triangle) []Triangle {
+	var finalTriangles []Triangle;
+	for tri := 0; tri < len(triangles); tri++ {
+		if tri == 0 {
+			finalTriangles = append(finalTriangles, triangles[tri])
+		} else {
+			var averPoint = Vector3{0, 0, 0}
+			for vertex := 0; vertex < len(finalTriangles); vertex++ {
+				averPoint.X += triangles[tri].vertices[vertex].X
+				averPoint.Y += triangles[tri].vertices[vertex].Y
+				averPoint.Z += triangles[tri].vertices[vertex].Z
+			}
+			averPoint.X /= float64(len(triangles[tri].vertices))
+			averPoint.Y /= float64(len(triangles[tri].vertices))
+			averPoint.Z /= float64(len(triangles[tri].vertices))
+			var newX = math.Pow(averPoint.X - anchor.X, 2)
+			var newY = math.Pow(averPoint.Y - anchor.Y, 2)
+			var newZ = math.Pow(averPoint.Z - anchor.Z, 2)
+			var relDist = math.Sqrt(newX + newY + newZ)
+			for idx := 0; idx < len(triangles); idx++ {
+				var averPoint2 = Vector3{0, 0, 0}
+				for vertex := 0; vertex < len(finalTriangles); vertex++ {
+					averPoint2.X += triangles[idx].vertices[vertex].X
+					averPoint2.Y += triangles[idx].vertices[vertex].Y
+					averPoint2.Z += triangles[idx].vertices[vertex].Z
+				}
+				averPoint2.X /= float64(len(triangles[idx].vertices))
+				averPoint2.Y /= float64(len(triangles[idx].vertices))
+				averPoint2.Z /= float64(len(triangles[idx].vertices))
+				var newX2 = math.Pow(averPoint2.X - anchor.X, 2)
+				var newY2 = math.Pow(averPoint2.Y - anchor.Y, 2)
+				var newZ2 = math.Pow(averPoint2.Z - anchor.Z, 2)
+				var relDist2 = math.Sqrt(newX2 + newY2 + newZ2)
+				if relDist < relDist2 {
+					finalTriangles = append(finalTriangles, triangles[tri])
+					break
+				}
+			}
+		}
+	}
+	return finalTriangles
 }
