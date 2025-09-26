@@ -47,7 +47,7 @@ func RadToDeg(rad float64) float64 {
 	return rad / (math.Pi / 180)
 }
 
-func PersProj(oriPoint Vector3, CamPos Vector3, CamRot Vector3, WinDim Dim2, nearPlane float64, farPlane float64) Vector2 {
+func PersProj(oriPoint Vector3, CamPos Vector3, CamRot Vector3, WinDim Dim2, nearPlane float64, farPlane float64, clip bool) Vector2 {
 	point := Vector3{
 		X: oriPoint.X - CamPos.X,
 		Y: oriPoint.Y - CamPos.Y,
@@ -70,7 +70,7 @@ func PersProj(oriPoint Vector3, CamPos Vector3, CamRot Vector3, WinDim Dim2, nea
 	tempY = point.X*math.Sin(camRad.Z) + point.Y*math.Cos(camRad.Z)
 	point.X = tempX
 	point.Y = tempY
-	if point.Z < nearPlane || point.Z > farPlane {
+	if clip && (point.Z < nearPlane || point.Z > farPlane) {
 		point.Z = 0
 	}
 	scale := Dim2{
