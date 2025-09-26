@@ -13,12 +13,12 @@ import (
 var nearPlane float64 = 0
 var farPlane float64 = 32
 
-func persProj(oriPoint extras.Vector3, clipping bool) extras.Vector2 {
-	return extras.PersProj(oriPoint, CamPos, CamRot, WinDim, nearPlane, farPlane, clipping)
+func persProj(oriPoint extras.Vector3) extras.Vector2 {
+	return extras.PersProj(oriPoint, WinDim)
 }
 
-func rotatePoints() extras.Vector3 {
-	return extras.RotatePoint(oriPoint, CamPos, CamRot, nearPlane, farPlane, clipping)
+func rotatePoint(point extras.Vector3) extras.Vector3 {
+	return extras.RotatePoint(point, CamPos, CamRot, nearPlane, farPlane, false)
 }
 
 func drawTriangles(screen *ebiten.Image) {
@@ -27,13 +27,18 @@ func drawTriangles(screen *ebiten.Image) {
 		var NewEnv2D []ebiten.Vertex
 		var indices []uint16
 		var smallDistToCen float64 = 18_446_744_073_709_551_615
+		var pointsBehindCam = 0
 		for vertex := 0; vertex < len(NewEnv[triangle].Vertices); vertex++ {
-			var point extras.Vector2 = persProj(NewEnv[triangle].Vertices[vertex], false)
-			smallDistToCen = math.Min(smallDistToCen, math.Hypot(point.X-WinDim.W/2, point.Y-WinDim.H/2))
+			var point3D extras.Vector3 = rotatePoint(NewEnv[triangle].Vertices[vertex])
+			var point2D extras.Vector2 = persProj(point3D)
+			smallDistToCen = math.Min(smallDistToCen, math.Hypot(point2D.X-WinDim.W/2, point2D.Y-WinDim.H/2))
+			if point3D.Z < 0 {
+				pointsBehindCam++
+			}
 		}
-		if smallDistToCen < math.Max(WinDim.W/2, WinDim.H/2) {
+		if smallDistToCen < math.Max(WinDim.W/2, WinDim.H/2) || pointsBehindCam < 3 {
 			for vertex := 0; vertex < len(NewEnv[triangle].Vertices); vertex++ {
-				var point extras.Vector2 = persProj(NewEnv[triangle].Vertices[vertex], false)
+				var point extras.Vector2 = persProj(rotatePoint(NewEnv[triangle].Vertices[vertex]))
 				//var R, G, B, A = NewEnv[triangle].color.RGBA()
 				smallDistToCen = math.Min(smallDistToCen, math.Hypot(point.X-WinDim.W/2, point.Y-WinDim.H/2))
 				var srcX float32 = 0
