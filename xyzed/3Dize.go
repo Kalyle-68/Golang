@@ -2,7 +2,6 @@ package main
 
 import (
 	"image/color"
-	"math"
 
 	"github.com/Kalyle-68/Golang/extras"
 	"github.com/hajimehoshi/ebiten/v2"
@@ -14,18 +13,46 @@ type triangle struct {
 	color    color.Color
 }
 
-var nearPlane float64 = 1
+var nearPlane float64 = 0.25
+var farPlane float64 = 32
 
-func persProj(point extras.Vector3) extras.Vector2 {
-	var newX float64 = point.X - CamPos.X
-	var newY float64 = -point.Y + CamPos.Y
-	var newZ float64 = point.Z - CamPos.Z
-	if newZ < nearPlane {
-		newZ = 1
+/*func persProj(oriPoint extras.Vector3, CamPos extras.Vector3, CamRot extras.Vector3, nearPlane = 0.25, farPlane = 32) extras.Vector2 {
+	point := extras.Vector3{
+		X: oriPoint.X - CamPos.X,
+		Y: oriPoint.Y - CamPos.Y,
+		Z: oriPoint.Z - CamPos.Z,
 	}
-	var scale = extras.Dim2{W: FocalLength * 1/math.Tan()), H: 0}
-	return extras.Vector2{X: (newX/newZ)* + WinDim.W/2,
-		Y: (newY/newZ)*FocalLength + WinDim.H/2}
+	camRad := extras.Vector3{
+		X: extras.DegToRad(-CamRot.X),
+		Y: extras.DegToRad(CamRot.Y),
+		Z: extras.DegToRad(CamRot.Z),
+	}
+	tempX := point.X*math.Cos(camRad.X) + point.Z*math.Sin(camRad.X)
+	tempZ := -point.X*math.Sin(camRad.X) + point.Z*math.Cos(camRad.X)
+	point.X = tempX
+	point.Z = tempZ
+	tempY := point.Y*math.Cos(camRad.Y) - point.Z*math.Sin(camRad.Y)
+	tempZ = point.Y*math.Sin(camRad.Y) + point.Z*math.Cos(camRad.Y)
+	point.Y = tempY
+	point.Z = tempZ
+	tempX = point.X*math.Cos(camRad.Z) - point.Y*math.Sin(camRad.Z)
+	tempY = point.X*math.Sin(camRad.Z) + point.Y*math.Cos(camRad.Z)
+	point.X = tempX
+	point.Y = tempY
+	if point.Z < nearPlane || point.Z > farPlane {
+		point.Z = 0
+	}
+	scale := extras.Dim2{
+		W: math.Min(WinDim.W/2, WinDim.H/2),
+		H: math.Min(WinDim.W/2, WinDim.H/2),
+	}
+	screenX := (point.X/point.Z)*scale.W + WinDim.W/2
+	screenY := -(point.Y/point.Z)*scale.H + WinDim.H/2
+	return extras.Vector2{X: screenX, Y: screenY}
+}*/
+
+func persProj(oriPoint extras.Vector3) extras.Vector2 {
+	return extras.PersProj(oriPoint, CamPos, CamRot, WinDim, 0.25, 32)
 }
 
 func drawTriangles(screen *ebiten.Image) {
