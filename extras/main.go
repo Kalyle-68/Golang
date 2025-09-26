@@ -96,13 +96,13 @@ func ReorderTriangles(anchor Vector3, triangles []Triangle) []Triangle {
 		} else {
 			var averPoint = Vector3{0, 0, 0}
 			for vertex := 0; vertex < len(finalTriangles); vertex++ {
-				averPoint.X += triangles[tri].vertices[vertex].X
-				averPoint.Y += triangles[tri].vertices[vertex].Y
-				averPoint.Z += triangles[tri].vertices[vertex].Z
+				averPoint.X += triangles[tri].Vertices[vertex].X
+				averPoint.Y += triangles[tri].Vertices[vertex].Y
+				averPoint.Z += triangles[tri].Vertices[vertex].Z
 			}
-			averPoint.X /= float64(len(triangles[tri].vertices))
-			averPoint.Y /= float64(len(triangles[tri].vertices))
-			averPoint.Z /= float64(len(triangles[tri].vertices))
+			averPoint.X /= float64(len(triangles[tri].Vertices))
+			averPoint.Y /= float64(len(triangles[tri].Vertices))
+			averPoint.Z /= float64(len(triangles[tri].Vertices))
 			var newX = math.Pow(averPoint.X-anchor.X, 2)
 			var newY = math.Pow(averPoint.Y-anchor.Y, 2)
 			var newZ = math.Pow(averPoint.Z-anchor.Z, 2)
@@ -110,13 +110,13 @@ func ReorderTriangles(anchor Vector3, triangles []Triangle) []Triangle {
 			for idx := 0; idx < len(triangles); idx++ {
 				var averPoint2 = Vector3{0, 0, 0}
 				for vertex := 0; vertex < len(finalTriangles); vertex++ {
-					averPoint2.X += triangles[idx].vertices[vertex].X
-					averPoint2.Y += triangles[idx].vertices[vertex].Y
-					averPoint2.Z += triangles[idx].vertices[vertex].Z
+					averPoint2.X += triangles[idx].Vertices[vertex].X
+					averPoint2.Y += triangles[idx].Vertices[vertex].Y
+					averPoint2.Z += triangles[idx].Vertices[vertex].Z
 				}
-				averPoint2.X /= float64(len(triangles[idx].vertices))
-				averPoint2.Y /= float64(len(triangles[idx].vertices))
-				averPoint2.Z /= float64(len(triangles[idx].vertices))
+				averPoint2.X /= float64(len(triangles[idx].Vertices))
+				averPoint2.Y /= float64(len(triangles[idx].Vertices))
+				averPoint2.Z /= float64(len(triangles[idx].Vertices))
 				var newX2 = math.Pow(averPoint2.X-anchor.X, 2)
 				var newY2 = math.Pow(averPoint2.Y-anchor.Y, 2)
 				var newZ2 = math.Pow(averPoint2.Z-anchor.Z, 2)
