@@ -113,7 +113,7 @@ func ReorderTriangles(anchor Vector3, triangles []Triangle) []Triangle {
 			var relDist = math.Sqrt(newX + newY + newZ)
 			for idx := 0; idx < len(triangles[tri].Vertices); idx++ {
 				var averPoint2 = Vector3{0, 0, 0}
-				for vertex := 0; vertex < len(finalTriangles); vertex++ {
+				for vertex := 0; vertex < len(finalTriangles[idx].Vertices); vertex++ {
 					averPoint2.X += finalTriangles[idx].Vertices[vertex].X
 					averPoint2.Y += finalTriangles[idx].Vertices[vertex].Y
 					averPoint2.Z += finalTriangles[idx].Vertices[vertex].Z
