@@ -125,7 +125,7 @@ func ReorderTriangles(anchor Vector3, triangles []Triangle) []Triangle {
 				var newY2 = math.Pow(averPoint2.Y-anchor.Y, 2)
 				var newZ2 = math.Pow(averPoint2.Z-anchor.Z, 2)
 				var relDist2 = math.Sqrt(newX2 + newY2 + newZ2)
-				if relDist < relDist2 {
+				if relDist <= relDist2 {
 					finalTriangles = append(finalTriangles[:idx], append([]Triangle{triangles[tri]}, finalTriangles[idx:]...)...)
 					break
 				}

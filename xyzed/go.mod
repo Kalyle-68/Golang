@@ -3,7 +3,7 @@ module github.com/Kalyle-68/Golang
 go 1.24.4
 
 require (
-	github.com/Kalyle-68/Golang/extras v0.0.0-20250927001718-f59a284c1aed
+	github.com/Kalyle-68/Golang/extras v0.0.0-20250927003626-3f9867f7d8df
 	github.com/hajimehoshi/ebiten/v2 v2.8.8
 )
 
