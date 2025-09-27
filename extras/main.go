@@ -99,7 +99,7 @@ func ReorderTriangles(anchor Vector3, triangles []Triangle) []Triangle {
 			finalTriangles = append(finalTriangles, triangles[tri])
 		} else {
 			var averPoint = Vector3{0, 0, 0}
-			for vertex := 0; vertex < len(triangles); vertex++ {
+			for vertex := 0; vertex < len(triangles[tri].Vertices); vertex++ {
 				averPoint.X += triangles[tri].Vertices[vertex].X
 				averPoint.Y += triangles[tri].Vertices[vertex].Y
 				averPoint.Z += triangles[tri].Vertices[vertex].Z

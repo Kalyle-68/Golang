@@ -4,6 +4,8 @@ github.com/Kalyle-68/Golang/extras v0.0.0-20250926192954-023b2eb625f7 h1:DyFhVPL
 github.com/Kalyle-68/Golang/extras v0.0.0-20250926192954-023b2eb625f7/go.mod h1:trLExpsOxHgCFMSUaWjgI9Nwr14jcKDdk8jDvZ3uPqU=
 github.com/Kalyle-68/Golang/extras v0.0.0-20250926194753-03041c9e3882 h1:aw12P0oo7DJobGAE2KHGw6kdUqa1vit/3DvYo1VXPjY=
 github.com/Kalyle-68/Golang/extras v0.0.0-20250926194753-03041c9e3882/go.mod h1:trLExpsOxHgCFMSUaWjgI9Nwr14jcKDdk8jDvZ3uPqU=
+github.com/Kalyle-68/Golang/extras v0.0.0-20250926235712-7c1ba02060a6 h1:7QrqlmCHYT49I9sv2/deEfrvL78EVHLJfOsSLnOZkxA=
+github.com/Kalyle-68/Golang/extras v0.0.0-20250926235712-7c1ba02060a6/go.mod h1:trLExpsOxHgCFMSUaWjgI9Nwr14jcKDdk8jDvZ3uPqU=
 github.com/ebitengine/gomobile v0.0.0-20240911145611-4856209ac325 h1:Gk1XUEttOk0/hb6Tq3WkmutWa0ZLhNn/6fc6XZpM7tM=
 github.com/ebitengine/gomobile v0.0.0-20240911145611-4856209ac325/go.mod h1:ulhSQcbPioQrallSuIzF8l1NKQoD7xmMZc5NxzibUMY=
 github.com/ebitengine/hideconsole v1.0.0 h1:5J4U0kXF+pv/DhiXt5/lTz0eO5ogJ1iXb8Yj1yReDqE=
